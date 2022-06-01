@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+.main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 95vh;
+    height: 95vh;
+    background-color: yellow;
+    border: 2px solid black;
+    
+}
+
+.game_screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 90%;
+    height: 90%;
+}
+
+
+table {
+    border: 0px solid;
+    border-collapse: collapse;
+  }
+
+.level {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+td {
+    border-radius: 10px;
+}
+
+.message {
+    width: 200px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: larger;
+    transform: translate(-50%,-50%);
+    background-color: wheat;
+    border: 5px solid blue;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}

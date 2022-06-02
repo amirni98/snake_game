@@ -11,6 +11,8 @@ let snake = {
     position_Y: 10,
 }
 
+let game_speed = 25;
+
 tail = [];
 
 let dimension = 50;
@@ -204,8 +206,8 @@ game_screen.appendChild(board);
 board_maker(dim = dimension);
 
 
-
 document.addEventListener('keydown', e => {
+    
 
     //console.log(snake.length);
     switch(e.key.toString()) {
@@ -243,7 +245,16 @@ document.addEventListener('keydown', e => {
                 }
             }
             snake.direction = 'RIGHT';
-            break;                       
+            break;  
+        case '+':
+            game_speed--;
+            console.log(game_speed);
+            break;
+            
+        case '-':
+            game_speed++;
+            console.log(game_speed);
+            break;                     
     }
 
     //console.log(snake.direction);
@@ -255,7 +266,7 @@ let game = (allow) => {
         setTimeout(() => {
             refresher();
             game(is_allowed);
-        }, 25);
+        }, game_speed);
     }
 }
 

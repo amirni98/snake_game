@@ -55,7 +55,7 @@ const board_maker = (dim = dimension) => {
         
         row.style.width = '10px';
         row.style.height = '10px';
-        row.style.backgroundColor = 'red';
+        row.style.backgroundColor = 'black';
         board.appendChild(row);
         for(j = 0 ; j < dim ; j++) {
             row = document.getElementById(`row_${i}`);
@@ -64,7 +64,7 @@ const board_maker = (dim = dimension) => {
             tiles.push(tile);
             tile.style.width = '10px';
             tile.style.height = '10px';
-            tile.style.backgroundColor = 'red';
+            tile.style.backgroundColor = 'black';
             row.appendChild(tile);
         }
         rows.push(tiles);
@@ -121,20 +121,20 @@ const is_bitten = () => {
 
 const snake_movement = () => {
     document.querySelectorAll('TD').forEach(i => {
-        i.style.backgroundColor = 'red';
+        i.style.backgroundColor = 'black';
     });
 
     if((snake.position_Y === meat.position_Y) && (snake.position_X === meat.position_X)){
         meat_generator();
     }
 
-    rows[meat.position_Y][meat.position_X].style.backgroundColor = 'blue';
+    rows[meat.position_Y][meat.position_X].style.backgroundColor = 'yellow';
     //rows[meat.position_Y][meat.position_X].style.borderRadius = '10px';
 
     for(i = 0; i < snake.length ; i++) {
-        rows[tail[i].position_Y][tail[i].position_X].style.backgroundColor = 'yellow';
+        rows[tail[i].position_Y][tail[i].position_X].style.backgroundColor = 'orange';
     }
-        rows[snake.position_Y][snake.position_X].style.backgroundColor = 'yellow';
+        rows[snake.position_Y][snake.position_X].style.backgroundColor = 'red';
     
     
 }

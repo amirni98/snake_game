@@ -2,8 +2,9 @@ const game_screen = document.getElementById('game_screen');
 const board = document.createElement('TABLE');
 const level = document.getElementById('level');
 const btn_play = document.getElementById('btn_play');
-const label = document.getElementById('label')
-const message = document.getElementById('message')
+const label = document.getElementById('label');
+const hq = document.getElementById('high_score');
+const message = document.getElementById('message');
 let snake = {
     length : 0,
     direction: 'UP',
@@ -11,7 +12,38 @@ let snake = {
     position_Y: 10,
 }
 
-let game_speed = 25;
+
+let ls = (high_score = 0 , speed = 0) => {
+    
+    if(!localStorage.getItem("high_score")) {
+        localStorage.setItem("high_score", `${high_score}`);
+    }
+    
+    else if(parseInt(localStorage.getItem("high_score")) < high_score){
+        localStorage.setItem("high_score", `${high_score}`);
+        
+    }
+    
+    if(!localStorage.getItem("speed")) {
+        localStorage.setItem("speed", "25");
+        
+    }  
+
+    else if(speed > 0){
+        localStorage.setItem("speed", `${speed}`);
+        console.log("hight");
+        }
+}
+
+ls();
+
+let game_speed = parseInt(localStorage.getItem("speed"));
+let high_score = parseInt(localStorage.getItem("high_score"));
+
+if(high_score) {
+    hq.hidden = false;
+    hq.innerText = `High Score: ${parseInt(localStorage.getItem('high_score'))}`;
+}
 
 tail = [];
 
@@ -115,7 +147,7 @@ const tail_movement = () =>  {
 const is_bitten = () => {
     for(i=1 ; i < snake.length ; i++){
         if((snake.position_X === tail[i].position_X) && (snake.position_Y === tail[i].position_Y)) {
-            console.log('biiiiit');
+            //console.log('biiiiit');
             game_over();
         }
     }
@@ -143,7 +175,10 @@ const snake_movement = () => {
 
 const game_over = () => {
     is_allowed = false;
+    ls(high_score = snake.length , speed = 0);
     label.innerText = 'GAME OVER';
+    hq.innerText = `High Score: ${parseInt(localStorage.getItem('high_score'))}`;
+    hq.hidden = false;
     btn_play.innerText = 'TRY AGAIN?';
     snake.position_X = Math.floor(Math.random()*(dimension-1));
     snake.position_Y = Math.floor(Math.random()*(dimension-1));
@@ -209,8 +244,20 @@ board_maker(dim = dimension);
 document.addEventListener('keydown', e => {
     
 
-    //console.log(snake.length);
+    
     switch(e.key.toString()) {
+        
+        case ' ':
+            if(is_allowed) {
+                is_allowed = false;
+            }
+            else {
+                is_allowed = true;
+                game(is_allowed);
+            
+            }
+            break;
+        
         case 'ArrowUp':
             if(snake.length){
                 if(snake.position_Y-1 === tail[0].position_Y){
@@ -247,17 +294,22 @@ document.addEventListener('keydown', e => {
             snake.direction = 'RIGHT';
             break;  
         case '+':
+            if(game_speed > 1){
             game_speed--;
+            ls(high_score = 0,speed = game_speed);
+            }
             console.log(game_speed);
+
             break;
             
         case '-':
             game_speed++;
+            ls(high_score = 0,speed = game_speed);
             console.log(game_speed);
             break;                     
     }
 
-    //console.log(snake.direction);
+    
 });
 
 
@@ -269,6 +321,7 @@ let game = (allow) => {
         }, game_speed);
     }
 }
+
 
 
 
